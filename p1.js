@@ -41,16 +41,12 @@ for( var host in output )
       }
     };
     var request = http.request( options, http_response );
-    request.on( 'error', (err) => { console.log('[' + host + '] ' + err); });
+    request.on( 'error', (err) => { console.log('[' + host + '] error: ' + err); });
     request.write( payload );
     request.end();
 
     function http_response( res ) {
       res.setEncoding( 'utf8' );
-      res.on( 'data', response_data );
-
-      function response_data(chunk) {
-        console.log('[' + host + '] response: ' + chunk);
-      }
+      res.on( 'data', (chunk) => console.log('[' + host + '] response: ' + chunk ));
     }
   })( host );
