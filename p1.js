@@ -22,21 +22,24 @@ const url = new URL(process.env['STORE_URL']);
 
 for( var host in output ) {
 
-  const success = output[host] !== null;
   const payload = JSON.stringify({
     origin: "A8-test",
     target: host,
-    success: success,
+    success: output[host] !== null,
     rtt: output[host],
     time: time
   });
-  const options = { protocol: url.protocol, hostname: url.hostname,
-    port: url.port, path: url.pathname, method:'POST',
+  const options = {
+    protocol: url.protocol,
+    hostname: url.hostname,
+    port: url.port,
+    path: url.pathname,
+    method:'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength( payload )}};
-  //console.log( host + ': ' + payload );
-  //console.log( host + ': ' + JSON.stringify( options ));
+      'Content-Length': Buffer.byteLength( payload )
+    }
+  };
   var request = http.request( options, http_response );
 
   function http_response( res ) {
