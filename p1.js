@@ -23,9 +23,13 @@ const url = new URL(process.env['STORE_URL']);
 for( var host in output ) {
 
   const success = output[host] !== null;
-  const payload = '{"origin":"A8-test", "target":"' + host +
-    '", "success":' + success+', "rtt":' + output[host] +
-    ', "time":"' + time + '"}';
+  const payload = JSON.stringify({
+    origin: "A8-test",
+    target: host,
+    success: success,
+    rtt: output[host],
+    time: time
+  });
   const options = { protocol: url.protocol, hostname: url.hostname,
     port: url.port, path: url.pathname, method:'POST',
     headers: {
