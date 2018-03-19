@@ -41,6 +41,9 @@ for( var host in output ) {
     }
   };
   var request = http.request( options, http_response );
+  request.on( 'error', (err) => { console.log('[' + host + '] ' + err); });
+  request.write( payload );
+  request.end();
 
   function http_response( res ) {
     res.setEncoding( 'utf8' );
@@ -50,8 +53,6 @@ for( var host in output ) {
       console.log(host + ' response: ' + chunk);  //!!! host będzie wartością bieżącą
     }
   }
-
-  request.write( payload );
-  request.end();
 }
+
 host = 'past';
