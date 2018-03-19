@@ -50,3 +50,7 @@ for( var host in output )
       res.on( 'data', (chunk) => console.log('[' + host + '] response: ' + chunk ));
     }
   })( host );
+
+
+// fs.readFileSync('hosts.txt', 'utf8');
+// fs.readFileSync('hosts.txt', 'utf8').split(/(?:\r\n|\r|\n)/g)
